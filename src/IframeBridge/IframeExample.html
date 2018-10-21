@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <body>
+	<h1>IframeBridge</h1>
+    <div id='buttons'></div>
+    
+	<script>
+        var callback;
+        
+        // 调用原生代码
+        function callNative(action, data, responseCallback) {
+            callback = responseCallback;
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            var id = Math.floor(Math.random() * 10000000);
+            WVJBIframe.setAttribute('id', id);
+            WVJBIframe.src = 'https://__jsbridge__?action='+ action + '&data=' + data + '&id=' + id;
+            document.documentElement.appendChild(WVJBIframe);
+        }
+    
+    // 暴露给原生，接收调用结果
+    function responseFromObjC(response, id) {
+        document.getElementById(id).remove();
+        if (!callback) {
+            return;
+        }
+        callback(response);
+    }
+    
+    // 调用demo
+    ;(function() {
+      var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'));
+      callbackButton.innerHTML = 'CallNative';
+      callbackButton.onclick = function(e) {
+      
+      var startTime = new Date().getTime();
+      console.log("---start---");
+      var j = 0
+      for (var i=0; i<100; i++) {
+        callNative("alertMessage", "Hello world!", function(response) {
+                   j++;
+                   if (j == 100) {
+                       var endTime = new Date().getTime();
+                       var totleTime = (endTime - startTime) / 1000;
+                   alert(totleTime);
+                //console.log("---end---");
+                //console.log("total:"+totleTime);
+                   };
+                 console.log(j, response);
+                 // alert(response);
+                 });
+      //console.log('index', i);
+      }
+      };
+      })()
+    
+	</script>
+</body></html>
