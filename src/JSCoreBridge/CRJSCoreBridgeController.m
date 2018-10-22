@@ -50,21 +50,6 @@
     };
 }
 
-#pragma mark-
-#pragma mark UIWebViewDelegate
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"zl---[%s]", __FUNCTION__);
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"zl---[%s]", __FUNCTION__);
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
-}
-
 #pragma clang diagnostic pop
 
 @end

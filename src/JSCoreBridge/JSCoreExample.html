@@ -1,33 +1,23 @@
 <!doctype html>
 <html>
+    
     <body>
-	<h1>JSCoreBridge</h1>
-    <div id='buttons'></div>
+        <h1>JSCoreBridge</h1>
+        <div id='buttons'></div>
+        
+        <script>
+            
+            // 调用demo
+            ; (function () {
+               var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'));
+               callbackButton.innerHTML = 'CallNative';
+               
+               callbackButton.onclick = function (e) {
+               alert(callNative("alertMessage", "Hello world!"));
+               };
+               })()
+               
+            </script>
+    </body>
     
-	<script>
-    
-    // 调用demo
-    ;(function() {
-      var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'));
-      callbackButton.innerHTML = 'CallNative';
-      
-      callbackButton.onclick = function(e) {
-          var startTime = new Date().getTime();
-          console.log("---start---");
-      
-          for (var i=0; i<100; i++) {
-            callNative("alertMessage", "Hello world!");
-            //console.log(callNative("alertMessage", "Hello world!"))
-          }
-      
-          var endTime = new Date().getTime();
-          var totleTime = (endTime - startTime) / 1000;
-          console.log("---end---");
-        //console.log("total:"+totleTime);
-            alert(totleTime);
-        //alert(callNative("alertMessage", "Hello world!"));
-      };
-      })()
-    
-	</script>
-</body></html>
+</html>

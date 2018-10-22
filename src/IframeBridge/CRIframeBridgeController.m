@@ -48,15 +48,14 @@
         }
         NSString *action = params[@"action"];
         NSString *data = params[@"data"];
-        NSString *callbackID = params[@"id"];
         
         if ([action isEqualToString:@"alertMessage"]) {
             // 调用原生方法，获取数据
             // js暴露方法`responseFromObjC`给原生，原生通过该方法回调
             // 在实际项目中，为了实现实现js并发原生方法，最好带一个callBackID，来区分不同的调用
-            [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"responseFromObjC('%@', '%@')", data, callbackID]];
+            [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"responseFromObjC('%@')", data]];
         } else {
-            [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"responseFromObjC('Unkown action', '%@')", callbackID]];
+            [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"responseFromObjC('Unkown action')"]];
         }
         return NO;
     }
